@@ -41,4 +41,4 @@ app.get("/images", (req, res, next) => {
 })
 
 
-app.listen(process.env.PORT, console.log(`server start on port : ${process.env.PORT}`))
+app.listen(process.env.PORT || 3000, console.log(`server start on port : ${process.env.PORT || 3000}`))

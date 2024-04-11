@@ -1,0 +1,54 @@
+version: "3.8"
+name: "my_stack"
+
+services:
+  db:
+    container_name: "mysql_database"
+    build: "./DB"
+    environment:
+      MYSQL_ROOT_PASSWORD: "test1234"
+      MYSQL_DATABASE: "docker_sql"
+      MYSQL_USER: "evengyl"
+      MYSQL_PASSWORD: "test1234"
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 512m
+        reservations:
+          cpus: "0.5"
+          memory: 256m
+
+  api:
+    container_name: "API_sql"
+    build: "./API"
+    environment:
+      APP_MYSQL_HOST: "db"
+      APP_MYSQL_USER: "evengyl"
+      APP_MYSQL_PASSWORD: "test1234"
+      APP_MYSQL_DATABASE: "docker_sql"
+      PORT: "3000"
+    ports:
+      - "3001:3000"
+
+  api_without_sql:
+    container_name: "API_without_sql"
+    build: "./API_without_sql"
+    environment:
+      PORT: "3000"
+    ports:
+      - "3000:3000"
+
+  front:
+    container_name: "front_angular"
+    build: "./Front"
+    ports:
+      - "8080:80"
+
+
+#volumes:
+
+#network:
+
+
+#docker compose -f "docker-compose.yaml" up -d --build 

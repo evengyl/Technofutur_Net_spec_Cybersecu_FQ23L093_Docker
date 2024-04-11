@@ -6,6 +6,8 @@ const cors = require("cors")
 
 app.use(cors())
 
+console.log(process.env.APP_MYSQL_HOST)
+
 const connection = mysql.createPool({
     connectionLimit : 10,
     host : process.env.APP_MYSQL_HOST,
